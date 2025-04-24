@@ -109,4 +109,34 @@
 
 ---
 
+## 2025-04-24 12:09 BST
+
+**Stackblitz Import Fix: Added .stackblitz.json**
+
+- Created `.stackblitz.json` at the project root with the following content:
+  ```json
+  {
+    "startCommand": "npm run dev",
+    "installCommand": "npm install",
+    "projectType": "vite",
+    "appFiles": [
+      "index.html",
+      "src/main.tsx",
+      "src/App.tsx"
+    ]
+  }
+  ```
+- Motivation: Stackblitz expects a `.stackblitz.json` file to define how to start and install the project, as well as which files are considered main app entry points. This avoids the `Cannot destructure property 'appFiles' of 'project' as it is null.` error during import.
+
+**How:**
+- Added `.stackblitz.json` with required fields for Stackblitz compatibility.
+
+**Why:**
+- Ensures seamless import and auto-bootstrapping of the project in Stackblitz.
+
+**Action Required:**
+- Push this file to your repository before re-importing into Stackblitz.
+
+---
+
 *Logged automatically by Cascade AI assistant.*

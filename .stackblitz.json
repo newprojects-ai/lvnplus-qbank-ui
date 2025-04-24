@@ -1,0 +1,10 @@
+{
+  "startCommand": "npm run dev",
+  "installCommand": "npm install",
+  "projectType": "vite",
+  "appFiles": [
+    "index.html",
+    "src/main.tsx",
+    "src/App.tsx"
+  ]
+}
