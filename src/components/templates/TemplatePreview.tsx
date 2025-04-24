@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Template, TemplatePreview as ITemplatePreview } from '../../types/templates';
-import { generatePreview } from '@lvnplus/core';
+// TEMP: Remove @lvnplus/core import to resolve Vite error
+// import { generatePreview } from "@lvnplus/core";
 import { CheckCircle, AlertCircle } from 'lucide-react';
 
 interface TemplatePreviewProps {
   template: Template;
   onClose: () => void;
 }
+
+// Fallback for missing generatePreview: use a stub so UI doesn't break
+const generatePreview = (template: any = {}, variables: any = {}) => ({
+  template,
+  variables,
+  renderedContent: 'Preview not available (generatePreview not implemented)',
+  isValid: false,
+  missingVariables: [] as string[],
+  output: 'Preview not available (generatePreview not implemented)'
+});
 
 export function TemplatePreview({ template, onClose }: TemplatePreviewProps) {
   const [variables, setVariables] = useState<Record<string, any>>({});
