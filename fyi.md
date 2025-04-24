@@ -34,4 +34,79 @@
 
 ---
 
+## 2025-04-24 11:21 BST
+
+**Vite Proxy Configuration for API**
+
+- Created `vite.config.ts` at the project root with the following content:
+  ```typescript
+  import { defineConfig } from 'vite';
+  import react from '@vitejs/plugin-react';
+
+  export default defineConfig({
+    plugins: [react()],
+    server: {
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
+    },
+  });
+  ```
+- This forwards all `/api` requests from the frontend dev server to the backend at `http://localhost:3000`, resolving CORS issues during development.
+- Motivation: Ensures seamless API communication between frontend and backend in local development without CORS errors.
+
+**How:**
+- Used Vite's built-in proxy configuration in `vite.config.ts`.
+
+**Why:**
+- Avoids the need to enable CORS on the backend for local development.
+- Simplifies local development setup for frontend-backend integration.
+
+**Action Required:**
+- Restart the Vite dev server (`npm run dev`) for the proxy settings to take effect.
+
+---
+
+## 2025-04-24 12:01 BST
+
+**Update: Use Relative API Base URL for Vite Proxy**
+
+- Changed `.env` configuration:
+  - From: `VITE_API_BASE_URL=http://localhost:3000/api`
+  - To:   `VITE_API_BASE_URL=/api`
+- Motivation: Ensures that all API requests from the frontend use the Vite dev server proxy, which forwards `/api` calls to the backend and avoids CORS errors.
+
+**How:**
+- Edited `.env` to use a relative path for `VITE_API_BASE_URL`.
+- No code changes required, only configuration update.
+
+**Why:**
+- Vite's proxy only intercepts relative URLs. Absolute URLs bypass the proxy and cause CORS errors.
+- This change ensures a smooth local development experience.
+
+**Action Required:**
+- Restart the Vite dev server (`npm run dev`) for the new `.env` setting to take effect.
+
+---
+
+## 2025-04-24 12:04 BST
+
+**Update: Vite Proxy Port Change**
+
+- Changed `vite.config.ts` proxy configuration:
+  - From: `/api` → `http://localhost:3000`
+  - To:   `/api` → `http://localhost:3001`
+- Motivation: Backend server is running on port 3001, not 3000. This ensures API requests are correctly proxied to the backend.
+
+**How:**
+- Edited `vite.config.ts` to update the proxy target port.
+
+**Why:**
+- Ensures the frontend communicates with the correct backend port during local development.
+
+**Action Required:**
+- Restart the Vite dev server (`npm run dev`) for the new proxy port to take effect.
+
+---
+
 *Logged automatically by Cascade AI assistant.*
